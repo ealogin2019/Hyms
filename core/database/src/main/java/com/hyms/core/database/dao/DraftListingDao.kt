@@ -32,5 +32,4 @@ interface DraftListingDao {
 
     @Query("DELETE FROM draft_listing")
     suspend fun clearAllDrafts()
-
 }

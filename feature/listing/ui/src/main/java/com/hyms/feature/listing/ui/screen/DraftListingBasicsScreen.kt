@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -87,7 +87,7 @@ fun DraftListingBasicsScreen(
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
-        Divider()
+        HorizontalDivider()
 
         OutlinedTextField(
             value = state?.draft?.title ?: "",
@@ -208,7 +208,7 @@ private fun SimplePicker(
                     )
                 }
             }
-            Divider()
+            HorizontalDivider()
         }
         Spacer(modifier = Modifier.height(10.dp))
     }
