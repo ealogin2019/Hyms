@@ -12,10 +12,13 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.hyms.core.ui.HymsTheme
 import com.hyms.feature.listing.ui.screen.DraftListingBasicsScreen
+import com.hyms.feature.feed.ui.HomeFeedScreen
+import com.hyms.feature.feed.ui.ListingDetailScreen // Added import
+import com.hyms.feature.listing.ui.screen.SellFlowScreen // Added import for SellFlowScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -64,14 +67,21 @@ private fun HymsAppRoot() {
                     }
                 }
             }
-        ) { padding ->
+        ) {
+            padding ->
             NavHost(
                 navController = navController,
                 startDestination = Tab.Home.route,
                 modifier = Modifier.padding(padding)
             ) {
-                composable(Tab.Home.route) { Placeholder("Home") }
-                composable(Tab.Sell.route) { DraftListingBasicsScreen() }
+                composable(Tab.Home.route) {
+                    HomeFeedScreen(navToDetail = { id -> navController.navigate("listing/$id") })
+                }
+                composable("listing/{id}") { backStackEntry ->
+                    val id = backStackEntry.arguments?.getString("id") ?: return@composable
+                    ListingDetailScreen(id = id)
+                }
+                composable(Tab.Sell.route) { SellFlowScreen() } // Updated line
                 composable(Tab.Inbox.route) { Placeholder("Inbox") }
                 composable(Tab.Profile.route) { Placeholder("Profile") }
             }
